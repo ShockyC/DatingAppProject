@@ -1,4 +1,5 @@
-﻿using DatingAppProject.Server.Models;
+﻿using DatingAppProject.Server.Configurations.Entities;
+using DatingAppProject.Server.Models;
 using DatingAppProject.Shared.Domain;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
@@ -26,5 +27,13 @@ namespace DatingAppProject.Server.Data
         public DbSet<ReviewOnCustomer> ReviewOnCustomers { get; set; }
         public DbSet<Preference> Preferences { get; set; }
         public DbSet<CustomerPreference> CustomerPreferences { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new StaffSeedConfiguration());
+            builder.ApplyConfiguration(new CustomerSeedConfiguration());
+            builder.ApplyConfiguration(new ComplaintSeedConfiguration());
+        }
     }
 }
