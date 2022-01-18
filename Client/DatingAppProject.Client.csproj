@@ -22,7 +22,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\NewFolder\" />
+    <Folder Include="Pages\Messages\" />
+    <Folder Include="Pages\Meetings\" />
   </ItemGroup>
 
 </Project>
