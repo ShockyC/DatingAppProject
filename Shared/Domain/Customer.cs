@@ -17,7 +17,5 @@ namespace DatingAppProject.Shared.Domain
         public string EducationLevel { get; set; }
         public string Occupation { get; set; }
         public int Contact { get; set; }
-        public int StaffId { get; set; }
-        public virtual Staff Staff { get; set; }
     }
 }
