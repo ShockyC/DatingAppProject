@@ -8,6 +8,7 @@ namespace DatingAppProject.Shared.Domain
 {
     public class ReviewOnCustomer
     {
+        public int ReviewId { get; set; }
         public int Rating { get; set; }
         public string Comment { get; set; }
         public int ReviewerId { get; set; }
