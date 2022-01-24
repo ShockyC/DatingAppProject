@@ -106,7 +106,7 @@ namespace DatingAppProject.Server.Migrations
                     b.Property<string>("ComplaintType")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerId")
@@ -131,6 +131,21 @@ namespace DatingAppProject.Server.Migrations
                     b.HasIndex("StaffId");
 
                     b.ToTable("Complaints");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ComplaintDescription = "I keep getting 404 Error",
+                            ComplaintTitle = "404 Error",
+                            ComplaintType = "Website",
+                            CreatedBy = "System",
+                            CustomerId = 0,
+                            DateCreated = new DateTime(2022, 1, 24, 14, 20, 16, 914, DateTimeKind.Local).AddTicks(7364),
+                            DateUpdated = new DateTime(2022, 1, 24, 14, 20, 16, 914, DateTimeKind.Local).AddTicks(7401),
+                            StaffId = 0,
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("DatingAppProject.Shared.Domain.Customer", b =>
@@ -146,7 +161,7 @@ namespace DatingAppProject.Server.Migrations
                     b.Property<int>("Contact")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -182,6 +197,25 @@ namespace DatingAppProject.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "123 Haywood Drive",
+                            Contact = 12345678,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 1, 24, 14, 20, 16, 913, DateTimeKind.Local).AddTicks(8934),
+                            DateOfBirth = new DateTime(2022, 1, 24, 14, 20, 16, 913, DateTimeKind.Local).AddTicks(7008),
+                            DateUpdated = new DateTime(2022, 1, 24, 14, 20, 16, 913, DateTimeKind.Local).AddTicks(8954),
+                            EducationLevel = "College Degree",
+                            Gender = "Male",
+                            Name = "John Smith",
+                            Occupation = "Military",
+                            Race = "Caucasian",
+                            Religion = "Christian",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("DatingAppProject.Shared.Domain.CustomerPreference", b =>
@@ -191,7 +225,7 @@ namespace DatingAppProject.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("CustomerId")
@@ -231,7 +265,7 @@ namespace DatingAppProject.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CustomerId")
@@ -272,7 +306,7 @@ namespace DatingAppProject.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CustomerId")
@@ -313,7 +347,7 @@ namespace DatingAppProject.Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -346,7 +380,7 @@ namespace DatingAppProject.Server.Migrations
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("CustomerId")
@@ -395,7 +429,7 @@ namespace DatingAppProject.Server.Migrations
                     b.Property<int>("Contact")
                         .HasColumnType("int");
 
-                    b.Property<string>("CreadedBy")
+                    b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("DateCreated")
@@ -419,6 +453,21 @@ namespace DatingAppProject.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Staffs");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Address = "987 Somerset Road",
+                            Contact = 98765432,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2022, 1, 24, 14, 20, 16, 909, DateTimeKind.Local).AddTicks(8003),
+                            DateUpdated = new DateTime(2022, 1, 24, 14, 20, 16, 910, DateTimeKind.Local).AddTicks(9373),
+                            EducationLevel = "University Degree",
+                            Name = "James May",
+                            Position = "Administrator",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("IdentityServer4.EntityFramework.Entities.DeviceFlowCodes", b =>

@@ -65,7 +65,7 @@ namespace DatingAppProject.Server.Migrations
                     Contact = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -122,7 +122,7 @@ namespace DatingAppProject.Server.Migrations
                     PrefDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -143,7 +143,7 @@ namespace DatingAppProject.Server.Migrations
                     Contact = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -270,7 +270,7 @@ namespace DatingAppProject.Server.Migrations
                     ParticipantId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -297,7 +297,7 @@ namespace DatingAppProject.Server.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -323,7 +323,7 @@ namespace DatingAppProject.Server.Migrations
                     PreferenceId = table.Column<int>(type: "int", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -356,7 +356,7 @@ namespace DatingAppProject.Server.Migrations
                     StaffId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -390,7 +390,7 @@ namespace DatingAppProject.Server.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CreadedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -409,6 +409,21 @@ namespace DatingAppProject.Server.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.InsertData(
+                table: "Complaints",
+                columns: new[] { "Id", "ComplaintDescription", "ComplaintTitle", "ComplaintType", "CreatedBy", "CustomerId", "DateCreated", "DateUpdated", "StaffId", "UpdatedBy" },
+                values: new object[] { 1, "I keep getting 404 Error", "404 Error", "Website", "System", 0, new DateTime(2022, 1, 24, 14, 20, 16, 914, DateTimeKind.Local).AddTicks(7364), new DateTime(2022, 1, 24, 14, 20, 16, 914, DateTimeKind.Local).AddTicks(7401), 0, "System" });
+
+            migrationBuilder.InsertData(
+                table: "Customers",
+                columns: new[] { "Id", "Address", "Contact", "CreatedBy", "DateCreated", "DateOfBirth", "DateUpdated", "EducationLevel", "Gender", "Name", "Occupation", "Race", "Religion", "UpdatedBy" },
+                values: new object[] { 1, "123 Haywood Drive", 12345678, "System", new DateTime(2022, 1, 24, 14, 20, 16, 913, DateTimeKind.Local).AddTicks(8934), new DateTime(2022, 1, 24, 14, 20, 16, 913, DateTimeKind.Local).AddTicks(7008), new DateTime(2022, 1, 24, 14, 20, 16, 913, DateTimeKind.Local).AddTicks(8954), "College Degree", "Male", "John Smith", "Military", "Caucasian", "Christian", "System" });
+
+            migrationBuilder.InsertData(
+                table: "Staffs",
+                columns: new[] { "Id", "Address", "Contact", "CreatedBy", "DateCreated", "DateUpdated", "EducationLevel", "Name", "Position", "UpdatedBy" },
+                values: new object[] { 1, "987 Somerset Road", 98765432, "System", new DateTime(2022, 1, 24, 14, 20, 16, 909, DateTimeKind.Local).AddTicks(8003), new DateTime(2022, 1, 24, 14, 20, 16, 910, DateTimeKind.Local).AddTicks(9373), "University Degree", "James May", "Administrator", "System" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
