@@ -8,7 +8,7 @@ namespace DatingAppProject.Shared.Domain
 {
     public class Preference
     {
-        public int PrefId { get; set; }
+        public int Id { get; set; }
         public string PrefName { get; set; }
         public string PrefDescription { get; set; }
     }

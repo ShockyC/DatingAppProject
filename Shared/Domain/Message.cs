@@ -8,7 +8,7 @@ namespace DatingAppProject.Shared.Domain
 {
     public class Message
     {
-        public int MessageId { get; set; }
+        public int Id { get; set; }
         public DateTime MessageDate { get; set; }
         public string MessageContent { get; set; }
         public int SenderId { get; set; }

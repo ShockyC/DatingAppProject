@@ -8,7 +8,7 @@ namespace DatingAppProject.Shared.Domain
 {
     public class Complaint
     {
-        public int ComplaintId { get; set; }
+        public int Id { get; set; }
         public string ComplaintTitle { get; set; }
         public string ComplaintType { get; set; }
         public string ComplaintDescription { get; set; }

@@ -8,7 +8,7 @@ namespace DatingAppProject.Shared.Domain
 {
     public class Meeting
     {
-        public int MeetingId { get; set; }
+        public int Id { get; set; }
         public DateTime MeetingTime { get; set; }
         public string Location { get; set; }
         public int HostId { get; set; }
