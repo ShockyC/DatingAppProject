@@ -17,7 +17,7 @@ namespace DatingAppProject.Server.Configurations.Entities
                 {
                     Id = 1,
                     ComplaintTitle = "404 Error",
-                    ComplaintType = "Website"
+                    ComplaintType = "Website",
                     ComplaintDescription = "I keep getting 404 Error",
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
