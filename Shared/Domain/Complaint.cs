@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DatingAppProject.Shared.Domain
 {
-    public class Complaint : BaseDomainModel
+    public class Complaint
     {
+        public int ComplaintId { get; set; }
         public string ComplaintTitle { get; set; }
         public string ComplaintType { get; set; }
         public string ComplaintDescription { get; set; }
