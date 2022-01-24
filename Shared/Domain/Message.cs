@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatingAppProject.Shared.Domain
 {
-    public class Message : BaseDomainModel
+    public class Message
     {
         public DateTime MessageDate { get; set; }
         public string MessageContent { get; set; }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DatingAppProject.Shared.Domain
 {
-    public class CustomerPreference : BaseDomainModel
+    public class CustomerPreference
     {
+        
         public string CustomerPrefValue { get; set; }
         public int CustomerId { get; set; }
         public int PrefId { get; set; }

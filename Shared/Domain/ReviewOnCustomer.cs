@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DatingAppProject.Shared.Domain
 {
-    public class ReviewOnCustomer : BaseDomainModel
+    public class ReviewOnCustomer
     {
         public int Rating { get; set; }
         public string Comment { get; set; }
