@@ -7,17 +7,17 @@
 <FormComponent ButtonText="Update" OnValidSubmit="EditStaff" staff="staff" />
 
 @code {
-    [Parameter] public int Id { get; set; }
+    [Parameter] public int id { get; set; }
     Staff staff = new Staff();
 
     protected async override Task OnParametersSetAsync()
     {
-        staff = await _client.GetFromJsonAsync<Staff>("api/staffs/" + Id);
+        staff = await _client.GetFromJsonAsync<Staff>("api/staffs/" + id);
     }
 
     async Task EditStaff()
     {
-        await _client.PutAsJsonAsync("api/staffs/"+Id, staff);
+        await _client.PutAsJsonAsync("api/staffs/", staff);
         _navManager.NavigateTo("/staffs/");
     }
 }
