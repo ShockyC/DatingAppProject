@@ -9,6 +9,6 @@
     protected async override Task OnParametersSetAsync()
     {
         staff = await
-       _client.GetFromJsonAsync<Staff>("api/staffs" + Id);
+       _client.GetFromJsonAsync<Staff>("api/staffs/" + Id);
     }
 }

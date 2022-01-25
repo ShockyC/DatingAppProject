@@ -2,69 +2,71 @@
 <EditForm Model="@customer" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="form-group">
-        <label>Name: </label>
-        <div>
-            <InputText @bind-Value="customer.Name" class="form-control" />
-            <ValidationMessage For="@(() => customer.Name)" />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Name: </label>
+            <div>
+                <InputText @bind-Value="customer.Name" class="form-control" />
+                <ValidationMessage For="@(() => customer.Name)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Address: </label>
-        <div>
-            <InputText @bind-Value="customer.Address" class="form-control" />
-            <ValidationMessage For="@(() => customer.Address)" />
+        <div class="form-group">
+            <label>Address: </label>
+            <div>
+                <InputText @bind-Value="customer.Address" class="form-control" />
+                <ValidationMessage For="@(() => customer.Address)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Race: </label>
-        <div>
-            <InputText @bind-Value="customer.Race" class="form-control" />
-            <ValidationMessage For="@(() => customer.Race)" />
+        <div class="form-group">
+            <label>Race: </label>
+            <div>
+                <InputText @bind-Value="customer.Race" class="form-control" />
+                <ValidationMessage For="@(() => customer.Race)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Gender: </label>
-        <div>
-            <InputText @bind-Value="customer.Gender" class="form-control" />
-            <ValidationMessage For="@(() => customer.Gender)" />
+        <div class="form-group">
+            <label>Gender: </label>
+            <div>
+                <InputText @bind-Value="customer.Gender" class="form-control" />
+                <ValidationMessage For="@(() => customer.Gender)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Religion: </label>
-        <div>
-            <InputText @bind-Value="customer.Religion" class="form-control" />
-            <ValidationMessage For="@(() => customer.Religion)" />
+        <div class="form-group">
+            <label>Religion: </label>
+            <div>
+                <InputText @bind-Value="customer.Religion" class="form-control" />
+                <ValidationMessage For="@(() => customer.Religion)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Date of Birth: </label>
-        <div>
-            <InputDate @bind-Value="customer.DateOfBirth" class="form-control" />
-            <ValidationMessage For="@(() => customer.DateOfBirth)" />
+        <div class="form-group">
+            <label>Date of Birth: </label>
+            <div>
+                <InputDate @bind-Value="customer.DateOfBirth" class="form-control" />
+                <ValidationMessage For="@(() => customer.DateOfBirth)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Education Level: </label>
-        <div>
-            <InputText @bind-Value="customer.EducationLevel" class="form-control" />
-            <ValidationMessage For="@(() => customer.EducationLevel)" />
+        <div class="form-group">
+            <label>Education Level: </label>
+            <div>
+                <InputText @bind-Value="customer.EducationLevel" class="form-control" />
+                <ValidationMessage For="@(() => customer.EducationLevel)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Occupation: </label>
-        <div>
-            <InputText @bind-Value="customer.Occupation" class="form-control" />
-            <ValidationMessage For="@(() => customer.Occupation)" />
+        <div class="form-group">
+            <label>Occupation: </label>
+            <div>
+                <InputText @bind-Value="customer.Occupation" class="form-control" />
+                <ValidationMessage For="@(() => customer.Occupation)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Contact Number: </label>
-        <div>
-            <InputNumber @bind-Value="customer.Contact" class="form-control" />
-            <ValidationMessage For="@(() => customer.Contact)" />
+        <div class="form-group">
+            <label>Contact Number: </label>
+            <div>
+                <InputNumber @bind-Value="customer.Contact" class="form-control" />
+                <ValidationMessage For="@(() => customer.Contact)" />
+            </div>
         </div>
-    </div>
+    </fieldset>
     @if (!Disabled)
     {
         <button type="submit" class="btn btn-success btn-block">

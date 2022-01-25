@@ -2,41 +2,43 @@
 <EditForm Model="@staff" OnValidSubmit="@OnValidSubmit">
     <DataAnnotationsValidator />
     <ValidationSummary />
-    <div class="form-group">
-        <label>First Name: </label>
-        <div>
-            <InputText @bind-Value="staff.Name" class="form-control" />
-            <ValidationMessage For="@(() => staff.Name)" />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>First Name: </label>
+            <div>
+                <InputText @bind-Value="staff.Name" class="form-control" />
+                <ValidationMessage For="@(() => staff.Name)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Address: </label>
-        <div>
-            <InputText @bind-Value="staff.Address" class="form-control" />
-            <ValidationMessage For="@(() => staff.Address)" />
+        <div class="form-group">
+            <label>Address: </label>
+            <div>
+                <InputText @bind-Value="staff.Address" class="form-control" />
+                <ValidationMessage For="@(() => staff.Address)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Education Level: </label>
-        <div>
-            <InputText @bind-Value="staff.EducationLevel" class="form-control" />
-            <ValidationMessage For="@(() => staff.EducationLevel)" />
+        <div class="form-group">
+            <label>Education Level: </label>
+            <div>
+                <InputText @bind-Value="staff.EducationLevel" class="form-control" />
+                <ValidationMessage For="@(() => staff.EducationLevel)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Position: </label>
-        <div>
-            <InputText @bind-Value="staff.Position" class="form-control" />
-            <ValidationMessage For="@(() => staff.Position)" />
+        <div class="form-group">
+            <label>Position: </label>
+            <div>
+                <InputText @bind-Value="staff.Position" class="form-control" />
+                <ValidationMessage For="@(() => staff.Position)" />
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label>Contact Number: </label>
-        <div>
-            <InputNumber @bind-Value="staff.Contact" class="form-control" />
-            <ValidationMessage For="@(() => staff.Contact)" />
+        <div class="form-group">
+            <label>Contact Number: </label>
+            <div>
+                <InputNumber @bind-Value="staff.Contact" class="form-control" />
+                <ValidationMessage For="@(() => staff.Contact)" />
+            </div>
         </div>
-    </div>
+    </fieldset>
     @if (!Disabled)
     {
         <button type="submit" class="btn btn-success btn-block">
