@@ -3,15 +3,15 @@
 @inject IJSRuntime js
 @attribute [Authorize]
 
-<h3 class="card-title">Customers</h3>
-<br />
+<h3 class="card-title">Car Customers</h3>
 
 <a href="/customers/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
-    Create a New Customer
+    Create New Customer
 </a>
 <br />
 <br />
+
 @if (Customers == null)
 {
     <div class="alert alert-info">Loading Customers...</div>
@@ -22,13 +22,14 @@ else
         <thead>
             <tr>
                 <th>Name</th>
-                <th>AddressName</th>
+                <th>Address</th>
                 <th>Race</th>
+                <th>Gender</th>
                 <th>Religion</th>
-                <th>Date Of Birth</th>
+                <th>Date of Birth</th>
                 <th>Education Level</th>
                 <th>Occupation</th>
-                <th>Contact Number</th>
+                <th>Contact</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -39,6 +40,7 @@ else
                     <td>@customer.Name</td>
                     <td>@customer.Address</td>
                     <td>@customer.Race</td>
+                    <td>@customer.Gender</td>
                     <td>@customer.Religion</td>
                     <td>@customer.DateOfBirth</td>
                     <td>@customer.EducationLevel</td>
@@ -76,7 +78,7 @@ else
         var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {customer.Name}?");
         if (confirm)
         {
-            await _client.DeleteAsync("api/customers/{customerId}");
+            await _client.DeleteAsync($"api/customers/{customerId}");
             await OnInitializedAsync();
         }
     }
