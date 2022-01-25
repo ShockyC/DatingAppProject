@@ -2,8 +2,6 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
-@inject HttpInterceptorService _interceptor
-@implements IDisposable
 
 <h3 class="card-title">Car Customers</h3>
 
@@ -83,9 +81,5 @@ else
             await _client.DeleteAsync($"api/customers/{customerId}");
             await OnInitializedAsync();
         }
-    }
-    public void Dispose()
-    {
-        _interceptor.DisposeEvent();
     }
 }
