@@ -30,7 +30,6 @@ namespace DatingAppProject.Shared.Domain
         public string Occupation { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]
-        [RegularExpression(@"6|8|9)\d{7}", ErrorMessage = "Contact Number is not a valid Phone Number.")]
         public int Contact { get; set; }
     }
 }
