@@ -1,5 +1,7 @@
 using DatingAppProject.Server.Data;
+using DatingAppProject.Server.IRepository;
 using DatingAppProject.Server.Models;
+using DatingAppProject.Server.Repository;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -42,6 +44,8 @@ namespace DatingAppProject.Server
 
             services.AddAuthentication()
                 .AddIdentityServerJwt();
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             services.AddControllersWithViews().AddNewtonsoftJson(op =>
                 op.SerializerSettings.ReferenceLoopHandling =

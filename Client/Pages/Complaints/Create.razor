@@ -1,0 +1,28 @@
+﻿@page "/complaints/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Complaint</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Complaint" OnValidSubmit="CreateComplaint" complaint="complaint"/>
+
+@code {
+    Complaint complaint = new Complaint();
+
+    private IList<Customer> Customers;
+    private IList<Staff> Staffs;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Customers = await _client.GetFromJsonAsync<List<Customer>>("api/customers");
+        Staffs = await _client.GetFromJsonAsync<List<Staff>>("api/staffs");
+    }
+
+    private async Task CreateComplaint()
+    {
+        await _client.PostAsJsonAsync("api/complaints", complaint);
+        _navManager.NavigateTo("/complaints/");
+    }
+}

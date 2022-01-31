@@ -7,14 +7,18 @@ using System.Threading.Tasks;
 
 namespace DatingAppProject.Shared.Domain
 {
-    public class Complaint
+    public class Complaint : BaseDomainModel
     {
-        public int Id { get; set; }
+        [Required]
         public string ComplaintTitle { get; set; }
+        [Required]
         public string ComplaintType { get; set; }
+        [Required]
         public string ComplaintDescription { get; set; }
-        public int? CustomerId { get; set; }
+        [Required]
+        public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
+        [Required]
         public int StaffId { get; set; }
         public virtual Staff Staff { get; set; }
     }

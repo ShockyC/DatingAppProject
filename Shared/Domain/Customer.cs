@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace DatingAppProject.Shared.Domain
 {
-    public class Customer
+    public class Customer : BaseDomainModel
     {
-        public int Id { get; set; }
         [Required]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Name does not meet length requirements")]
         public string Name { get; set; }

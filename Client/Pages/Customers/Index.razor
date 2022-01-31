@@ -5,7 +5,7 @@
 @inject HttpInterceptorService _interceptor
 @implements IDisposable
 
-<h3 class="card-title">Car Customers</h3>
+<h3 class="card-title">Customer Accounts</h3>
 
 <a href="/customers/create" class="btn btn-secondary">
     <span class="oi oi-plus"></span>
@@ -81,7 +81,7 @@ else
         var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {customer.Name}?");
         if (confirm)
         {
-            await _client.DeleteAsync($"api/customers/{customerId}");
+            await _client.DeleteAsync("api/customers/"+customerId);
             await OnInitializedAsync();
         }
     }

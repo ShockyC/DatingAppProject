@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DatingAppProject.Server.Data;
 using DatingAppProject.Shared.Domain;
+using DatingAppProject.Server.IRepository;
 
 namespace DatingAppProject.Server.Controllers
 {
@@ -14,32 +15,38 @@ namespace DatingAppProject.Server.Controllers
     [ApiController]
     public class ComplaintsController : ControllerBase
     {
-        private readonly ApplicationDbContext _context;
-
-        public ComplaintsController(ApplicationDbContext context)
+        //private readonly ApplicationDbContext _context;
+        private readonly IUnitOfWork _unitOfWork;
+        //public ComplaintsController(ApplicationDbContext context)
+        public ComplaintsController(IUnitOfWork unitOfWork)
         {
-            _context = context;
+            //_context = context;
+            _unitOfWork = unitOfWork;
         }
 
         // GET: api/Complaints
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Complaint>>> GetComplaints()
+        public async Task<IActionResult> GetComplaints()
         {
-            return await _context.Complaints.ToListAsync();
+            //return await _context.Complaints.ToListAsync();
+            var complaints = await _unitOfWork.Complaints.GetAll(includes: q => q.Include(x => x.Staff).Include(x => x.Customer));
+            return Ok(complaints);
         }
 
         // GET: api/Complaints/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Complaint>> GetComplaint(int id)
         {
-            var complaint = await _context.Complaints.FindAsync(id);
+            //var complaint = await _context.Complaints.FindAsync(id);
+            var complaint = await _unitOfWork.Complaints.Get(q => q.Id == id);
 
             if (complaint == null)
             {
                 return NotFound();
             }
 
-            return complaint;
+            //return complaint;
+            return Ok(complaint);
         }
 
         // PUT: api/Complaints/5
@@ -52,15 +59,18 @@ namespace DatingAppProject.Server.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(complaint).State = EntityState.Modified;
+            //_context.Entry(complaint).State = EntityState.Modified;
+            _unitOfWork.Complaints.Update(complaint);
 
             try
             {
-                await _context.SaveChangesAsync();
+                //await _context.SaveChangesAsync();
+                await _unitOfWork.Save(HttpContext);
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ComplaintExists(id))
+                //if (!ComplaintExists(id))
+                if (!await ComplaintExists(id))
                 {
                     return NotFound();
                 }
@@ -78,9 +88,10 @@ namespace DatingAppProject.Server.Controllers
         [HttpPost]
         public async Task<ActionResult<Complaint>> PostComplaint(Complaint complaint)
         {
-            _context.Complaints.Add(complaint);
-            await _context.SaveChangesAsync();
-
+            //_context.Complaints.Add(complaint);
+            //await _context.SaveChangesAsync();
+            await _unitOfWork.Complaints.Insert(complaint);
+            await _unitOfWork.Save(HttpContext);
             return CreatedAtAction("GetComplaint", new { id = complaint.Id }, complaint);
         }
 
@@ -88,21 +99,25 @@ namespace DatingAppProject.Server.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteComplaint(int id)
         {
-            var complaint = await _context.Complaints.FindAsync(id);
+            //var complaint = await _context.Complaints.FindAsync(id);
+            var complaint = await _unitOfWork.Complaints.Get(q => q.Id == id);
             if (complaint == null)
             {
                 return NotFound();
             }
 
-            _context.Complaints.Remove(complaint);
-            await _context.SaveChangesAsync();
-
+            //_context.Complaints.Remove(complaint);
+            //await _context.SaveChangesAsync();
+            await _unitOfWork.Complaints.Delete(id);
+            await _unitOfWork.Save(HttpContext);
             return NoContent();
         }
 
-        private bool ComplaintExists(int id)
+        private async Task<bool> ComplaintExists(int id)
         {
-            return _context.Complaints.Any(e => e.Id == id);
+            //return _context.Complaints.Any(e => e.Id == id);
+            var complaint = await _unitOfWork.Complaints.Get(q => q.Id == id);
+            return complaint != null;
         }
     }
 }

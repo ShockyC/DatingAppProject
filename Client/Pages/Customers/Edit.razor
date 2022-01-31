@@ -17,7 +17,7 @@
 
     async Task EditCustomer()
     {
-        await _client.PutAsJsonAsync("api/customers/", customer);
+        await _client.PutAsJsonAsync("api/customers/"+ id, customer);
         _navManager.NavigateTo("/customers/");
     }
 }

@@ -1,10 +1,83 @@
-﻿@page "/meetings/"
+﻿@page "/complaints/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
+<h3 class="card-title">Complaints</h3>
+<a href="/complaints/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Complaint
+</a>
+<br />
+<br />
 
-<h3>MeetingsPage</h3>
+@if (Complaints == null)
+{
+    <div class="alert alert-info">Loading Complaints...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Complaint Type</th>
+                <th>Description</th>
+                <th>Customer Account</th>
+                <th>Staff Handler</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var complaint in Complaints)
+            {
+                <tr>
+                    <td>@complaint.ComplaintTitle</td>
+                    <td>@complaint.ComplaintType</td>
+                    <td>@complaint.ComplaintDescription</td>
+                    <td>@complaint.Customer.Name</td>
+                    <td>@complaint.Staff.Name</td>
+                    <td>
+                        <a href="/complaints/view/@complaint.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/complaints/edit/@complaint.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(complaint.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
-<SamplePageContentComponent />
 
 @code {
+    private List<Complaint> Complaints;
 
+    protected async override Task OnInitializedAsync()
+    {
+        _interceptor.MonitorEvent();
+        Complaints = await _client.GetFromJsonAsync<List<Complaint>>("api/complaints");
+    }
+
+    async Task Delete(int complaintId)
+    {
+        var complaint = Complaints.First(q => q.Id == complaintId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {complaint.ComplaintTitle}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync("api/complaints/" + complaintId);
+            await OnInitializedAsync();
+        }
+    }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+    }
 }

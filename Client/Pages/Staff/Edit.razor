@@ -17,7 +17,7 @@
 
     async Task EditStaff()
     {
-        await _client.PutAsJsonAsync("api/staffs/", staff);
+        await _client.PutAsJsonAsync("api/staffs/"+id, staff);
         _navManager.NavigateTo("/staffs/");
     }
 }
