@@ -1,0 +1,117 @@
+﻿@inject HttpClient _client
+<EditForm Model="@review" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Review Title: </label>
+            <div>
+                <InputText @bind-Value="review.ReviewTitle" class="form-control" />
+                <ValidationMessage For="@(() => review.ReviewTitle)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Comment: </label>
+            <div>
+                <InputText @bind-Value="review.Comment " class="form-control" />
+                <ValidationMessage For="@(() => review.Comment )" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Rating </label>
+            <div>
+                <InputNumber @bind-Value="review.Rating" class="form-control" />
+                <ValidationMessage For="@(() => review.Rating)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Review Date </label>
+            <div>
+                <InputDate @bind-Value="review.ReviewDate" class="form-control" />
+                <ValidationMessage For="@(() => review.ReviewDate)" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Reviewer </label>
+            <div>
+                <InputSelect @bind-Value="review. ReviewerId" class="form-control">
+                    <option value="">--Select Sender--</option>
+                    @if (Customers != null)
+                    {
+                        foreach (var customer in Customers)
+                        {
+                            <option value="@customer.Id">
+                                @customer.Name - @customer.Contact
+                            </option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => review. ReviewerId)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Reviewee </label>
+            <div>
+                <InputSelect @bind-Value="review. RevieweeId" class="form-control">
+                    <option value="">--Select Sender--</option>
+                    @if (Customers != null)
+                    {
+                        foreach (var customer in Customers)
+                        {
+                            <option value="@customer.Id">
+                                @customer.Name - @customer.Contact
+                            </option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => review. RevieweeId)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Meeting </label>
+            <div>
+                <InputSelect @bind-Value="review. Meeting" class="form-control">
+                    <option value="">--Select Meeting--</option>
+                    @if (Meetings != null)
+                    {
+                        foreach (var meeting in Meetings)
+                        {
+                            <option value="@meeting.Id">
+                                @meeting.MeetingTime - @meeting.Location
+                            </option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => review. MeetingId)" />
+            </div>
+        </div>
+    </fieldset>
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="reviews" />
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Review review { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Customer> Customers;
+    private IList<Meeting> Meetings;
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        Customers = await _client.GetFromJsonAsync<List<Customer>>("api/customers");
+        Meetings = await _client.GetFromJsonAsync<List<Meeting>>("api/meetings");
+
+    }
+
+
+}

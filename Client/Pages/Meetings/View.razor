@@ -1,0 +1,14 @@
+﻿@page "/meetings/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3>View</h3>
+<FormComponent meeting="meeting" Disabled="true" />
+@code {
+    [Parameter] public int Id { get; set; }
+    Meeting meeting = new Meeting();
+    protected async override Task OnParametersSetAsync()
+    {
+        meeting = await
+       _client.GetFromJsonAsync<Meeting>("api/meetings/" + Id);
+    }
+}

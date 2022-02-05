@@ -1,11 +1,90 @@
 ﻿@page "/reviews/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
+
+<h3 class="card-title">Reviews</h3>
+
+<a href="/reviews/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Reviews
+</a>
+<br />
+<br />
+
+@if (Reviews == null)
+{
+    <div class="alert alert-info">Loading Reviews...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Review Title</th>
+                <th>Comment</th>
+                <th>Rating</th>
+                <th>Review Date</th>
+                <th>Sender</th>
+                <th>Receiver</th>
+                <th>Meeting</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var review in Reviews)
+            {
+            <tr>
+                <td>@review.ReviewTitle</td>
+                <td>@review.Comment </td>
+                <td>@review.Rating </td>
+                <td>@review.ReviewDate</td>
+                <td>@review.Reviewer.Name</td>
+                <td>@review.Reviewee.Name</td>
+                <td>@review.Meeting.MeetingTime</td>
 
 
-<h3>ReviewsPage</h3>
-
-<SamplePageContentComponent />
+                <td>
+                    <a href="/reviews/view/@review.Id" class="btn btn-primary">
+                        <span class="oi oi-book"></span>
+                    </a>
+                    <a href="/reviews/edit/@review.Id" class="btn btn-warning">
+                        <span class="oi oi-pencil"></span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@(()=>Delete(review.Id))">
+                        <span class="oi oi-delete"></span>
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
 
 
 @code {
+    private List<Review> Reviews;
 
+    protected async override Task OnInitializedAsync()
+    {
+        _interceptor.MonitorEvent();
+        Reviews = await _client.GetFromJsonAsync<List<Review>>("api/reviews");
+    }
+
+    async Task Delete(int reviewId)
+    {
+        var review = Reviews.First(q => q.Id == reviewId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {review.ReviewTitle}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"api/reviews/" + reviewId);
+            await OnInitializedAsync();
+        }
+    }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+    }
 }

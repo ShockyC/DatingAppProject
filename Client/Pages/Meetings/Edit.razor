@@ -1,0 +1,23 @@
+﻿@page "/meetings/edit/{id:int}/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>Edit Meeting</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditMeeting" meeting="meeting" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Meeting meeting = new Meeting();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        meeting = await _client.GetFromJsonAsync<Meeting>("api/meetings/" + id);
+    }
+
+    async Task EditMeeting()
+    {
+        await _client.PutAsJsonAsync("api/meetings/" + id, meeting);
+        _navManager.NavigateTo("/meetings/");
+    }
+}

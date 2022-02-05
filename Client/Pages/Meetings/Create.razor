@@ -1,0 +1,27 @@
+﻿@page "/meetings/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Meeting</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Meeting" meeting="meeting" OnValidSubmit="@CreateMeeting" />
+
+@code {
+    Meeting meeting = new Meeting();
+
+    private IList<Customer> Customers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Customers = await _client.GetFromJsonAsync<List<Customer>>("api/customers");
+
+    }
+
+    private async Task CreateMeeting()
+    {
+        await _client.PostAsJsonAsync("api/meetings", meeting);
+        _navManager.NavigateTo("/meetings/");
+    }
+}

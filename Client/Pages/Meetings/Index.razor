@@ -1,10 +1,86 @@
 ﻿@page "/meetings/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
+
+<h3 class="card-title">Meetings</h3>
+
+<a href="/meetings/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Meeting
+</a>
+<br />
+<br />
+
+@if (Meetings == null)
+{
+    <div class="alert alert-info">Loading Meetings...</div>
+}
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Meeting Time</th>
+                <th>Meeting Location</th>
+                <th>Host</th>
+                <th>Participant</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var meeting in Meetings)
+            {
+            <tr>
+                <td>@meeting.MeetingTime</td>
+                <td>@meeting.Location </td>
+                <td>@meeting.Host.Name</td>
+                <td>@meeting.Participant.Name</td>
 
 
-<h3>MeetingsPage</h3>
 
-<SamplePageContentComponent />
+
+                <td>
+                    <a href="/meetings/view/@meeting.Id" class="btn btn-primary">
+                        <span class="oi oi-book"></span>
+                    </a>
+                    <a href="/meetings/edit/@meeting.Id" class="btn btn-warning">
+                        <span class="oi oi-pencil"></span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@(()=>Delete(meeting.Id))">
+                        <span class="oi oi-delete"></span>
+                    </button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+}
+
 
 @code {
+    private List<Meeting> Meetings;
 
+    protected async override Task OnInitializedAsync()
+    {
+        _interceptor.MonitorEvent();
+        Meetings = await _client.GetFromJsonAsync<List<Meeting>>("api/meetings");
+    }
+
+    async Task Delete(int meetingId)
+    {
+        var meeting = Meetings.First(q => q.Id == meetingId);
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {meeting.MeetingTime}?");
+        if (confirm)
+        {
+            await _client.DeleteAsync($"api/meetings/"+ meetingId);
+            await OnInitializedAsync();
+        }
+    }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+    }
 }

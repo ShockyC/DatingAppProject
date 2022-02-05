@@ -24,7 +24,7 @@ namespace DatingAppProject.Server.Data
         public DbSet<Complaint> Complaints { get; set; }
         public DbSet<Meeting> Meetings { get; set; }
         public DbSet<Message> Messages { get; set; }
-        public DbSet<ReviewOnCustomer> ReviewOnCustomers { get; set; }
+        public DbSet<Review> Reviews { get; set; }
         public DbSet<Preference> Preferences { get; set; }
         public DbSet<CustomerPreference> CustomerPreferences { get; set; }
 

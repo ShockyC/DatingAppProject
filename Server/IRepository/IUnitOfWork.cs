@@ -13,5 +13,8 @@ namespace DatingAppProject.Server.IRepository
         IGenericRepository<Customer> Customers { get; }
         IGenericRepository<Staff> Staffs { get; }
         IGenericRepository<Complaint> Complaints { get; }
+        IGenericRepository<Message> Messages { get; }
+        IGenericRepository<Meeting> Meetings { get; }
+        IGenericRepository<Review> Reviews { get; }
     }
 }

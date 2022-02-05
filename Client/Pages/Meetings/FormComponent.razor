@@ -1,0 +1,82 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@meeting" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label>Meeting Time: </label>
+            <div>
+                <InputDate @bind-Value="meeting.MeetingTime" class="form-control" />
+                <ValidationMessage For="@(() => meeting.MeetingTime)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Meeting Location: </label>
+            <div>
+                <InputText @bind-Value="meeting.Location " class="form-control" />
+                <ValidationMessage For="@(() => meeting.Location )" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Host: </label>
+            <div>
+                <InputSelect @bind-Value="meeting.HostId" class="form-control">
+                    <option value="">--Select Host--</option>
+                    @if (Customers != null)
+                    {
+                        foreach (var customer in Customers)
+                        {
+                            <option value="@customer.Id">
+                                @customer.Name - @customer.Contact
+                            </option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => meeting.HostId)" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Participant: </label>
+            <div>
+                <InputSelect @bind-Value="meeting.ParticipantId" class="form-control">
+                    <option value="">--Select Participant--</option>
+                    @if (Customers != null)
+                    {
+                        foreach (var customer in Customers)
+                        {
+                            <option value="@customer.Id">
+                                @customer.Name - @customer.Contact
+                            </option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => meeting.ParticipantId)" />
+            </div>
+        </div>
+
+    </fieldset>
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="meetings" />
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Meeting meeting { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Customer> Customers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Customers = await _client.GetFromJsonAsync<List<Customer>>("api/customers");
+        
+    }
+
+}

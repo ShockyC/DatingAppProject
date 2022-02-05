@@ -1,0 +1,14 @@
+﻿@page "/reviews/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+<h3>View</h3>
+<FormComponent review="review" Disabled="true" />
+@code {
+    [Parameter] public int Id { get; set; }
+    Review review = new Review();
+    protected async override Task OnParametersSetAsync()
+    {
+        review = await
+       _client.GetFromJsonAsync<Review>("api/reviews/" + Id);
+    }
+}

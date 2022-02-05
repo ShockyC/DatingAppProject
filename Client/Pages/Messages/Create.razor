@@ -1,0 +1,27 @@
+﻿@page "/messages/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Message</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Message" message="message" OnValidSubmit="@CreateMessage" />
+
+@code {
+    Message message = new Message();
+
+    private IList<Customer> Customers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Customers = await _client.GetFromJsonAsync<List<Customer>>("api/customers");
+
+    }
+
+    private async Task CreateMessage()
+    {
+        await _client.PostAsJsonAsync("api/messages", message);
+        _navManager.NavigateTo("/messages/");
+    }
+}
