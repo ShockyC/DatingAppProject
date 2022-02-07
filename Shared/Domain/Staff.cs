@@ -13,10 +13,13 @@ namespace DatingAppProject.Shared.Domain
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Name does not meet length requirements")]
         public string Name { get; set; }
         [Required]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "Address does not meet length requirements")]
         public string Address { get; set; }
         [Required]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "Education Level does not meet length requirements")]
         public string EducationLevel { get; set; }
         [Required]
+        [StringLength(100, MinimumLength = 2, ErrorMessage = "Position does not meet length requirements")]
         public string Position { get; set; }
         [Required]
         [DataType(DataType.PhoneNumber)]

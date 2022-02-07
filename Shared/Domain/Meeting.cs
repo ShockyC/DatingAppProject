@@ -13,6 +13,7 @@ namespace DatingAppProject.Shared.Domain
         [DataType(DataType.Date)]
         public DateTime MeetingTime { get; set; }
         [Required]
+        [StringLength(100, MinimumLength = 4, ErrorMessage = "Location does not meet length requirements")]
         public string Location { get; set; }
         [Required]
         public int? HostId { get; set; }
