@@ -9,8 +9,6 @@ namespace DatingAppProject.Client.Static
     {
         public static readonly string Prefix = "api";
 
-        public static readonly string CustomersEndpoint = $"{Prefix}/customers";
-        public static readonly string StaffsEndpoint = $"{Prefix}/staffs";
-        public static readonly string ComplaintsEndpoint = $"{Prefix}/complaints";
+        public static readonly string AccountsEndpoint = $"{Prefix}/accounts";
     }
 }

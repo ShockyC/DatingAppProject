@@ -1,0 +1,89 @@
+﻿@page "/accounts/"
+@inject HttpClient _client
+@attribute [Authorize]
+@using System.Security.Claims
+@inject AuthenticationStateProvider AuthenticationStateProvider
+<h3>App Users</h3>
+@if (_claims.Count() > 0)
+{
+    <ul>
+        @foreach (var claim in _claims)
+        {
+            <li>@claim.Type: @claim.Value</li>
+        }
+    </ul>
+}
+<p>Id: @_currentUserId</p>
+<p>Name: @_currentUserName</p>
+<p>Role: @_currentUserRole</p>
+@if (AppUsers == null)
+{
+    <div class="alert alert‐info">Loading Accounts...</div>
+}
+else
+{
+    <table class="table table‐responsive">
+        <thead>
+            <tr>
+                <th>Account Id</th>
+                <th>Email</th>
+                <th>User Name</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var appUser in AppUsers)
+            {
+                <tr>
+                    <td>@appUser.Id</td>
+                    <td>@appUser.Email</td>
+                    <td>@appUser.UserName</td>
+                    <td>@appUser.FirstName</td>
+                    <td>@appUser.LastName</td>
+                </tr>
+           }
+        </tbody>
+    </table>
+}
+@code {
+    private List<AppUser> AppUsers;
+    private IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
+    private string _currentUserId;
+    private string _currentUserName;
+    private string _currentUserRole;
+    protected async override Task OnInitializedAsync()
+    {
+        AppUsers = await
+        _client.GetFromJsonAsync<List<AppUser>>($"{Endpoints.AccountsEndpoint}");
+        var authState = await
+        AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        if (user.Identity.IsAuthenticated)
+        {
+            _claims = user.Claims;
+            //_currentUserName = user.Identity.Name;
+            if (_claims.Count() > 0)
+            {
+                foreach (var claim in _claims)
+                {
+                    if (claim.Type == "sub")
+                    {
+                        _currentUserId = claim.Value;
+                        continue;
+                    }
+                    if (claim.Type == "name")
+                    {
+                        _currentUserName = claim.Value;
+                        continue;
+                    }
+                }
+            }
+        }
+        if (_currentUserId != String.Empty)
+        {
+            _currentUserRole = await
+            _client.GetStringAsync($"{Endpoints.AccountsEndpoint}/{_currentUserId}");
+        }
+    }
+}
