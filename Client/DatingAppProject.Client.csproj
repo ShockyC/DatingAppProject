@@ -6,22 +6,22 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Complaints\**" />
-    <Compile Remove="Pages\Meetings\**" />
-    <Compile Remove="Pages\Messages\**" />
-    <Compile Remove="Pages\Reviews\**" />
-    <Content Remove="Pages\Complaints\**" />
-    <Content Remove="Pages\Meetings\**" />
-    <Content Remove="Pages\Messages\**" />
-    <Content Remove="Pages\Reviews\**" />
-    <EmbeddedResource Remove="Pages\Complaints\**" />
-    <EmbeddedResource Remove="Pages\Meetings\**" />
-    <EmbeddedResource Remove="Pages\Messages\**" />
-    <EmbeddedResource Remove="Pages\Reviews\**" />
-    <None Remove="Pages\Complaints\**" />
-    <None Remove="Pages\Meetings\**" />
-    <None Remove="Pages\Messages\**" />
-    <None Remove="Pages\Reviews\**" />
+    <None Include="Pages\Meetings\Create.razor" />
+    <None Include="Pages\Meetings\Edit.razor" />
+    <None Include="Pages\Meetings\FormComponent.razor" />
+    <None Include="Pages\Meetings\Index.razor" />
+    <None Include="Pages\Meetings\View.razor" />
+    <None Include="Pages\Messages\Create.razor" />
+    <None Include="Pages\Messages\Edit.razor" />
+    <None Include="Pages\Messages\FormComponent.razor" />
+    <None Include="Pages\Messages\Index.razor" />
+    <None Include="Pages\Messages\View.razor" />
+    <None Include="Pages\Reviews\Create.razor" />
+    <None Include="Pages\Reviews\Edit.razor" />
+    <None Include="Pages\Reviews\FormComponent.razor" />
+    <None Include="Pages\Reviews\Index.razor" />
+    <None Include="Pages\Reviews\View.razor" />
+    <None Include="wwwroot\scripts\datatable.js" />
   </ItemGroup>
 
   <ItemGroup>
